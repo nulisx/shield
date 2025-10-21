@@ -11,9 +11,6 @@ const nextConfig = {
   // output file tracing root to help with standalone output
   outputFileTracingRoot: process.cwd(),
 
-  // enable swc minification for smaller bundles
-  swcMinify: true,
-
   webpack: (config, { isServer }) => {
     // optimize chunks: split large files to stay below 25 MiB
     config.optimization.splitChunks = {
