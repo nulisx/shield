@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "rimraf .next/cache",
+    "prebuild": "rm -rf .next/cache",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
