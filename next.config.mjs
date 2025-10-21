@@ -1,4 +1,4 @@
-import { join } from 'path';
+import path from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,20 +8,23 @@ const nextConfig = {
 
   output: 'standalone',
 
-  experimental: {
-    // instead of __dirname, just use process.cwd() as root
-    outputFileTracingRoot: process.cwd(),
-  },
+  // experimental replaced with top-level option
+  outputFileTracingRoot: process.cwd(),
 
   webpack: (config, { isServer }) => {
+    // optimize chunks so no single file exceeds 25 MiB
     config.optimization.splitChunks = {
       chunks: 'all',
-      maxSize: 25000000, // 25 MiB max per chunk
+      maxSize: 24000000, // ~24 MiB
     };
 
     if (!isServer) {
-      config.devtool = false; // disables source maps for smaller client JS
+      // disable source maps for smaller client bundle
+      config.devtool = false;
     }
+
+    // force clean cache to avoid huge .next/cache/webpack files
+    config.cache = false;
 
     return config;
   },
